@@ -1,0 +1,97 @@
+<section class="container criar-memorias ff-inter ">
+  <header class="header">
+    <h2>Adicione uma <br>memória nova:</h2>
+  </header>
+  <form action="">
+    <label for="memoria">Memória: </label> <!--VERIFICAR for-->
+    <input
+      type="textarea"
+      class="input"
+      id="memoria"
+      name="memoria"
+      placeholder="Digite a memória que deseja guardar:"
+      [(ngModel)]="memoria.conteudo"
+    >
+    <label for="autoria">Autor ou Fonte: </label> <!--VERIFICAR for-->
+    <input
+      type="text"
+      class="input"
+      id="autoria"
+      name="autoria"
+      placeholder="Digite o autor ou fonte"
+      [(ngModel)]= "memoria.autoria"
+    >
+    <label for="modelo">Selecione o modelo que deseja: </label>
+    <div class="container-radio">
+      <div class="radio-modelo">
+        <label for="modelo1">
+          <input
+          type="radio"
+          id="modelo1"
+          value="modelo1"
+          name="modelo-card"
+          [(ngModel)]= "memoria.modelo"
+          >
+          <div class="custom-radio">
+            <span></span>
+          </div>
+            <span>Modelo 1</span>
+        </label>
+        Prévia:
+        <div class="modelo modelo1 ff-robotomono">
+          <img src="../../../../assets/imagens/modelo1.png" alt="azul">
+          <p class="conteudo">{{ memoria.conteudo }}</p>
+          <p class="autoria"><strong> {{ memoria.autoria }}</strong></p>
+        </div>
+      </div>
+
+      <div class="radio-modelo">
+        <label for="modelo2">
+          <input
+          type="radio"
+          id="modelo2"
+          value="modelo2"
+          name="modelo-card"
+          [(ngModel)]= "memoria.modelo"
+          >
+          <div class="custom-radio">
+            <span></span>
+          </div>
+            <span>Modelo 2</span>
+        </label>
+        Prévia:
+        <div class="modelo modelo1 ff-robotomono">
+          <img src="../../../../assets/imagens/modelo2.png" alt="azul-claro">
+          <p class="conteudo">{{ memoria.conteudo }}</p>
+          <p class="autoria"><strong>{{ memoria.autoria }}</strong></p>
+        </div>
+      </div>
+
+      <div class="radio-modelo">
+        <label for="modelo3">
+          <input
+          type="radio"
+          id="modelo3"
+          value="modelo3"
+          name="modelo-card"
+          [(ngModel)]= "memoria.modelo"
+          >
+          <div class="custom-radio">
+            <span></span>
+          </div>
+            <span>Modelo 3</span>
+        </label>
+        Prévia:
+        <div class="modelo modelo1 ff-robotomono">
+          <img src="../../../../assets/imagens/modelo3.png" alt="verde">
+          <p class="conteudo">{{ memoria.conteudo }}</p>
+          <p class="autoria"><strong>{{ memoria.autoria }}</strong></p>
+        </div>
+      </div>
+    </div>
+    <div class="acoes">
+      <button (click)="criarMemoria()" class="botao">Salvar</button>
+      <button (click)="cancelarMemoria()" class="botao">Cancelar</button>
+    </div>
+  </form>
+</section>

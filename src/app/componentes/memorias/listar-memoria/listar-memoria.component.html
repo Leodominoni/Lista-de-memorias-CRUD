@@ -1,0 +1,16 @@
+<section class="container">
+  <header class="header d-flex">
+    <h2 clads="ff-inter">Mural de memórias</h2>
+    <button routerLink="/criarMemoria" class="botao">Adicionar memória</button>
+  </header>
+  <div class="mural" *ngIf="listaMemorias.length > 0, else semMemorias">
+    <div *ngFor="let memoria of listaMemorias">
+      <app-memoria [memoria]="memoria"></app-memoria>
+    </div>
+  </div>
+</section>
+<ng-template #semMemorias>
+  <div class="ff-inter sem-memoria">
+    <p>Sem memória cadastrada</p>
+  </div>
+</ng-template>

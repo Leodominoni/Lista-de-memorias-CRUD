@@ -1,0 +1,13 @@
+<div class="memoria {{ memoria.modelo }} ff-roboto-mono" [ngClass]="larguraMemoria()">
+  <img src="/assets/imagens/{{ memoria.modelo }}.png" alt="aspas coloridas">
+  <p class="conteudo">{{ memoria.conteudo }}</p>
+  <p class="autoria"><strong>{{ memoria.autoria }}</strong></p>
+  <div class="acoes">
+    <button class="botao-editar" routerLink="/memorias/editarMemoria/{{memoria.id}}">
+      <img src="/assets/imagens/icone-editar.png" alt="icone de editar">
+    </button>
+    <button class="botao-excluir" routerLink="/memorias/excluirMemoria/{{memoria.id}}">
+      <img src="/assets/imagens/icone-excluir.png" alt="icone de excluir">
+    </button>
+  </div>
+</div>
