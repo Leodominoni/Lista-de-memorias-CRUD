@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 
-import { Memoria } from '../memoria';
 import { MemoriaService } from '../memoria.service';
 
 
@@ -12,28 +12,47 @@ import { MemoriaService } from '../memoria.service';
 })
 export class CriarMemoriaComponent implements OnInit {
 
-  memoria : Memoria = {
-    conteudo: '',
-    autoria: '',
-    modelo: 'modelo1',
-  }
+  formulario!: FormGroup;
 
   constructor(
     private service: MemoriaService,
-    private router:Router
+    private router:Router,
+    private formBuilder: FormBuilder
     ) { }
 
   ngOnInit(): void {
+    this.formulario = this.formBuilder.group({
+      conteudo: ['', Validators.compose([
+        Validators.required,
+        Validators.pattern(/(.|\s)*\S(.|\s)*/)
+      ])],
+      autoria: ['',Validators.compose([
+        Validators.required,
+        Validators.minLength(3)
+      ])],
+      modelo: ['modelo 1']
+    })
   }
 
   criarMemoria(){
-    this.service.criar(this.memoria).subscribe(() => {
-      this.router.navigate(['/listarMemoria'])
-    })
+    console.log(this.formulario.get('autoria')?.errors)
+    if(this.formulario.valid){
+      this.service.criar(this.formulario.value).subscribe(() => {
+        this.router.navigate(['/listarMemoria'])
+      })
+    }
   }
 
   cancelarMemoria(){
     this.router.navigate(['/listarMemoria'])
+  }
+
+  habilitarBotao(): string{
+    if(this.formulario.valid){
+      return 'botao'
+    } else {
+      return 'botao__desabilitado'
+    }
   }
 
 }

@@ -2,25 +2,32 @@
   <header class="header">
     <h2>Adicione uma <br>memória nova:</h2>
   </header>
-  <form action="">
+  <form [formGroup]="formulario">
     <label for="memoria">Memória: </label> <!--VERIFICAR for-->
     <input
       type="textarea"
       class="input"
       id="memoria"
-      name="memoria"
+      formControlName="conteudo"
       placeholder="Digite a memória que deseja guardar:"
-      [(ngModel)]="memoria.conteudo"
     >
+    <div class="mensagem__erro" *ngIf="formulario.get('conteudo')?.errors && formulario.get('conteudo')?.touched">
+      Memória é obrigatória!
+    </div>
     <label for="autoria">Autor ou Fonte: </label> <!--VERIFICAR for-->
     <input
       type="text"
       class="input"
       id="autoria"
-      name="autoria"
+      formControlName="autoria"
       placeholder="Digite o autor ou fonte"
-      [(ngModel)]= "memoria.autoria"
     >
+    <div class="mensagem__erro" *ngIf="formulario.get('autoria')?.errors?.['required'] && formulario.get('autoria')?.touched">
+      Autor e/ou Fonte é obrigatório!
+    </div>
+    <div class="mensagem__erro" *ngIf="formulario.get('autoria')?.errors?.['minlength'] && formulario.get('autoria')?.touched">
+      Necessita ter no mínimo 3 caracteres.
+    </div>
     <label for="modelo">Selecione o modelo que deseja: </label>
     <div class="container-radio">
       <div class="radio-modelo">
@@ -29,8 +36,7 @@
           type="radio"
           id="modelo1"
           value="modelo1"
-          name="modelo-card"
-          [(ngModel)]= "memoria.modelo"
+          formControlName="modelo"
           >
           <div class="custom-radio">
             <span></span>
@@ -40,8 +46,8 @@
         Prévia:
         <div class="modelo modelo1 ff-robotomono">
           <img src="../../../../assets/imagens/modelo1.png" alt="azul">
-          <p class="conteudo">{{ memoria.conteudo }}</p>
-          <p class="autoria"><strong> {{ memoria.autoria }}</strong></p>
+          <p class="conteudo">{{ formulario.get('conteudo')?.value }}</p>
+          <p class="autoria"><strong> {{ formulario.get('autoria')?.value }}</strong></p>
         </div>
       </div>
 
@@ -51,8 +57,7 @@
           type="radio"
           id="modelo2"
           value="modelo2"
-          name="modelo-card"
-          [(ngModel)]= "memoria.modelo"
+          formControlName="modelo"
           >
           <div class="custom-radio">
             <span></span>
@@ -62,8 +67,8 @@
         Prévia:
         <div class="modelo modelo1 ff-robotomono">
           <img src="../../../../assets/imagens/modelo2.png" alt="azul-claro">
-          <p class="conteudo">{{ memoria.conteudo }}</p>
-          <p class="autoria"><strong>{{ memoria.autoria }}</strong></p>
+          <p class="conteudo">{{ formulario.get('conteudo')?.value }}</p>
+          <p class="autoria"><strong>{{ formulario.get('autoria')?.value }}</strong></p>
         </div>
       </div>
 
@@ -73,8 +78,7 @@
           type="radio"
           id="modelo3"
           value="modelo3"
-          name="modelo-card"
-          [(ngModel)]= "memoria.modelo"
+          formControlName="modelo"
           >
           <div class="custom-radio">
             <span></span>
@@ -84,13 +88,18 @@
         Prévia:
         <div class="modelo modelo1 ff-robotomono">
           <img src="../../../../assets/imagens/modelo3.png" alt="verde">
-          <p class="conteudo">{{ memoria.conteudo }}</p>
-          <p class="autoria"><strong>{{ memoria.autoria }}</strong></p>
+          <p class="conteudo">{{ formulario.get('conteudo')?.value }}</p>
+          <p class="autoria"><strong>{{ formulario.get('autoria')?.value }}</strong></p>
         </div>
       </div>
     </div>
     <div class="acoes">
-      <button (click)="criarMemoria()" class="botao">Salvar</button>
+      <button
+        [disabled]="!formulario.valid"
+        (click)="criarMemoria()"
+        [ngClass]="habilitarBotao()"
+        >Salvar
+      </button>
       <button (click)="cancelarMemoria()" class="botao">Cancelar</button>
     </div>
   </form>
